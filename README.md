@@ -1,6 +1,6 @@
 # MetadataMP3
 
-MetadataMP3 v.1.0.0
+MetadataMP3 v.1.0.0 (Python 2.7)
 
 MetadataMP3 allows you to change the metadata on an .mp3 file.
 
