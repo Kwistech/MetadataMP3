@@ -2,12 +2,18 @@
 # NOTE: For Python 2.7
 
 import eyed3
+from tkFileDialog import askopenfilename
 from Tkinter import *
-import tkFileDialog
 
 
 class App:
+    """Create MetadataMP3 main program loop."""
     def __init__(self, root):
+        """Initialize class variables and call interface method.
+
+        Args:
+            root (instance): Tk() instance.
+        """
         self.var = StringVar()
         self.top_txt = "MetadataMP3 - Change the Metadata of MP3 Files"
         self.var.set("C:/")
@@ -15,6 +21,11 @@ class App:
         self.interface(root)
 
     def interface(self, root):
+        """Create GUI interface for class.
+
+        Args:
+            root (instance): Tk() instance.
+        """
         main_label = Label(root, text=self.top_txt)
         main_label.grid(row=0, column=0, columnspan=3)
 
@@ -39,7 +50,7 @@ class App:
         album_entry = Entry(root, width=35)
         album_entry.grid(row=5, column=1)
 
-        info = [track_entry, artist_entry, album_entry]
+        info = [track_entry, artist_entry, album_entry]  # Collects entry data
 
         file_path_button = Button(root, text="File Path:",
                                   command=lambda: self.open_file_handler())
@@ -50,28 +61,37 @@ class App:
         save_button.grid(row=6, column=1, pady=5)
 
     def open_file_handler(self):
-        file_path = tkFileDialog.askopenfilename()
+        """Open explorer window for user to choose .mp3 file."""
+        file_path = askopenfilename()
         self.file_path = file_path
         self.var.set(value=file_path)
 
     def save(self, info, root):
+        """Save user data for .mp3 to .mp3 metadata.
+
+        Args:
+            info (list): Contains Tkinter Entry widgets.
+            root (instance): Tk() instance.
+        """
         info_new = [x.get() for x in info]
         title, artist, album = info_new
         a_file = self.file_path
 
+        # Saves user data to .mp3 file metadata.
         audiofile = eyed3.load(a_file)
         audiofile.tag.title = u"{}".format(title)
         audiofile.tag.artist = u"{}".format(artist)
         audiofile.tag.album = u"{}".format(album)
         audiofile.tag.save()
 
-        save_label = Label(root, text="Metadata Saved!")
-        save_label.grid(row=0, column=1)
+        save_label = Label(root, text="Saved!")
+        save_label.grid(row=6, column=1, padx=5, sticky=E)
 
         [x.delete(0, 140) for x in info]
 
 
 def main():
+    """Create Tk() instance and main program loop."""
     root = Tk()
     root.title("MetadataMP3")
 
