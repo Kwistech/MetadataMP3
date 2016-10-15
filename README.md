@@ -20,7 +20,7 @@ The below image is the GUI for MetadataMP3:
 
 + The user first clicks on the "File Path:" button and selects the .mp3 file they wish to change the metadata for.
 + Then, the user inputs the title, artist, and/or album they want for the file.
-+ Finally, the user clicks the "Save" button and the metadata will be saved (a "Saved!" message will pop up).
++ Finally, the user clicks the "Save" button and the metadata will be saved (a message box will pop up confirming the save).
 
 ---
 
