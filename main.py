@@ -4,6 +4,7 @@
 import eyed3
 from tkFileDialog import askopenfilename
 from Tkinter import *
+from tkMessageBox import showinfo
 
 
 class App:
@@ -57,7 +58,7 @@ class App:
         file_path_button.grid(row=1, column=0, padx=5, pady=15, sticky=N)
 
         save_button = Button(root, text="Save", width=8,
-                             command=lambda: self.save(info, root))
+                             command=lambda: self.save(info))
         save_button.grid(row=6, column=1, pady=5)
 
     def open_file_handler(self):
@@ -66,12 +67,11 @@ class App:
         self.file_path = file_path
         self.var.set(value=file_path)
 
-    def save(self, info, root):
+    def save(self, info):
         """Save user data for .mp3 to .mp3 metadata.
 
         Args:
             info (list): Contains Tkinter Entry widgets.
-            root (instance): Tk() instance.
         """
         info_new = [x.get() for x in info]
         title, artist, album = info_new
@@ -84,8 +84,7 @@ class App:
         audiofile.tag.album = u"{}".format(album)
         audiofile.tag.save()
 
-        save_label = Label(root, text="Saved!")
-        save_label.grid(row=6, column=1, padx=5, sticky=E)
+        showinfo("MetadataMP3 Message", "Metadata Saved to MP3 File!")
 
         [x.delete(0, 140) for x in info]
 
